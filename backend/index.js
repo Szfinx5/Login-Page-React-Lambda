@@ -1,4 +1,4 @@
-import replyMessage from "./models/response";
+import replyMessage from "./functions/response";
 import register from "./models/register";
 
 export async function handler(event) {
@@ -13,11 +13,12 @@ export async function handler(event) {
       response = replyMessage(201, event.path);
       break;
     case event.httpMethod === "POST" && event.path === "/user/login":
-      response = replyMessage(202, event.path);
+      const loginBody = JSON.parse(event.body);
+      response = await login(loginBody);
       break;
     case event.httpMethod === "POST" && event.path === "/user/register":
-      const body = JSON.parse(event.body);
-      response = await register(body);
+      const registerBody = JSON.parse(event.body);
+      response = await register(registerBody);
       break;
     default:
       response = replyMessage(404, "404 Not Found");

@@ -1,33 +1,48 @@
 import AWS from "aws-sdk";
-import replyMessage from "./response";
 import bcrypt from "bcryptjs";
+import replyMessage from "../functions/response.js";
+import getUser from "../functions/user.js";
 
 AWS.config.update({ region: "eu-west-1" });
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 async function register(userData) {
-  const userName = userData.userName.trim().toLowerCase();
-  const password = userData.password.trim();
-  const firstName = userData.firstName.trim();
-  const sureName = userData.sureName.trim();
-  const email = userData.email.trim();
-
-  if (!userName || !password || !firstName || !sureName || !email) {
-    return replyMessage(401, { message: "Please complete every fields" });
+  if (
+    !userData.username ||
+    !userData.password ||
+    !userData.firstname ||
+    !userData.surename ||
+    !userData.email
+  ) {
+    // return replyMessage(401, { message: "Please complete every fields" });
+    return console.log(
+      replyMessage(401, { message: "Please complete every fields" })
+    );
   }
 
-  const existingUser = await getUser(userName);
-  if (existingUser && existingUser.username) {
-    return replyMessage(401, { message: "Username is already taken" });
+  const userName = userData.username.trim().toLowerCase();
+  const password = userData.password.trim();
+  const firstName = userData.firstname.trim();
+  const sureName = userData.surename.trim();
+  const email = userData.email.trim();
+
+  const isAvailableUser = await getUser(userName);
+  console.log(isAvailableUser);
+  console.log(userName);
+  if (isAvailableUser && isAvailableUser.username) {
+    // return replyMessage(401, { message: "Username is already taken" });
+    return console.log(
+      replyMessage(401, { message: "Username is already taken" })
+    );
   }
 
   const encryptedPassword = bcrypt.hashSync(password, 10);
   const user = {
     username: userName,
     password: encryptedPassword,
-    firstName: firstName,
-    sureName: sureName,
+    firstname: firstName,
+    surename: sureName,
     email: email,
   };
 
@@ -37,20 +52,8 @@ async function register(userData) {
       message: "Server error. Please try again later.",
     });
   }
-  return replyMessage(200, { message: userName });
-}
-
-async function getUser(userName) {
-  const params = {
-    TableName: "cromwell-users",
-    Key: { username: userName },
-  };
-  try {
-    const data = await documentClient.get(params).promise();
-    return data.Items;
-  } catch (error) {
-    return "There was an error getting the user: ", error;
-  }
+  //   return replyMessage(200, { message: userName });
+  return console.log(replyMessage(200, { message: userName }));
 }
 
 async function postUser(user) {
@@ -66,5 +69,13 @@ async function postUser(user) {
     return "There was an error adding the user: ", error;
   }
 }
+
+register({
+  username: "Bella",
+  password: "password",
+  firstname: "Ala",
+  surename: "Dar",
+  email: "ala@dar.com",
+});
 
 export default register;
