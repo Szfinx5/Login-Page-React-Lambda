@@ -6,7 +6,7 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 
 async function getUser(email) {
   const params = {
-    TableName: "cromwell-users",
+    TableName: "cromwell",
     Key: { email: email },
   };
   try {

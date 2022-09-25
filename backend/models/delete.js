@@ -7,7 +7,7 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 async function deleteUser(email) {
   try {
     const params = {
-      TableName: "cromwell-users",
+      TableName: "cromwell",
       Key: { email: email.toLowerCase() },
     };
 

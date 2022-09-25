@@ -46,7 +46,7 @@ async function register(userData) {
 
 async function postUser(user) {
   const params = {
-    TableName: "cromwell-users",
+    TableName: "cromwell",
     Item: user,
   };
 
