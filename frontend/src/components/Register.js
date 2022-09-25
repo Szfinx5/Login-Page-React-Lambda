@@ -42,6 +42,9 @@ function Register() {
   return (
     <div className="register">
       <h2>Register</h2>
+      <p>
+        Please enter your email, password and your name to create your account.
+      </p>
       <form onSubmit={handleSubmit}>
         <label>Name:</label>
         <input

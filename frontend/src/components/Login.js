@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -39,6 +39,7 @@ function Login() {
   return (
     <div className="login">
       <h2>Login</h2>
+      <p>Please enter your email and password to access your account.</p>
       <form onSubmit={handleSubmit}>
         <label>Email address:</label>
         <input
@@ -57,6 +58,11 @@ function Login() {
         ></input>
         {!isLoading && <button>Login</button>}
         {isLoading && <button disabled>Please wait...</button>}
+        <div className="new-account">
+          <Link to="/register">
+            Not purchased from us before? Register a new account here.
+          </Link>
+        </div>
         {error && <div className="error">{error}</div>}
       </form>
     </div>
@@ -64,3 +70,5 @@ function Login() {
 }
 
 export default Login;
+
+<Link to="/login">Login/Register</Link>;

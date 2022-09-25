@@ -84,6 +84,17 @@ div .error {
   margin: 20px 0;
 }
 
+.register p, .login p{
+  margin-bottom: 1.2em;
+  line-height: 1.5;
+}
+
+.new-account{
+  margin-bottom: 1.2em;
+  margin-top: 1.2em;
+  line-height: 1.5;
+}
+
 /* Homepage */
 .home-image img{
   max-width: 750px;
@@ -105,3 +116,4 @@ div .error {
   line-height: 2rem;
   margin-bottom: 15px;
 }
+
