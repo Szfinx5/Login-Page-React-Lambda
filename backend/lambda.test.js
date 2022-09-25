@@ -1,121 +1,125 @@
-import { test, expect } from "@jest/globals";
+import { test, expect, describe } from "@jest/globals";
 import deleteUser from "./models/delete.js";
 import login from "./models/login.js";
 import register from "./models/register.js";
-// import deleteUser from "./models/delete.js";
 
-test("Trying to add a new valid user to the table", async () => {
-  //arrange
-  const expected = 200;
+describe("Testing the Register functionality", () => {
+  test("Trying to add a new valid user to the table", async () => {
+    //arrange
+    const expected = 200;
 
-  //act
-  const result = await register({
-    username: "TestUser3475478",
-    password: "password",
-    firstname: "Ala",
-    surename: "Dar",
-    email: "ala@dar.com",
+    //act
+    const result = await register({
+      username: "TestUser3475478",
+      password: "password",
+      firstname: "Ala",
+      surename: "Dar",
+      email: "ala@dar.com",
+    });
+
+    const actual = result.statusCode;
+
+    //assert
+    expect(actual).toBe(expected);
   });
 
-  const actual = result.statusCode;
+  test("Trying to add an existing user to the table", async () => {
+    //arrange
+    const expected = '{"message":"Username is already taken"}';
 
-  //assert
-  expect(actual).toBe(expected);
-});
+    //act
+    const result = await register({
+      username: "TestUser3475478",
+      password: "password",
+      firstname: "Ala",
+      surename: "Dar",
+      email: "ala@dar.com",
+    });
 
-test("Trying to add an existing user to the table", async () => {
-  //arrange
-  const expected = '{"message":"Username is already taken"}';
+    const actual = result.body;
 
-  //act
-  const result = await register({
-    username: "TestUser3475478",
-    password: "password",
-    firstname: "Ala",
-    surename: "Dar",
-    email: "ala@dar.com",
+    //assert
+    expect(actual).toBe(expected);
   });
 
-  const actual = result.body;
+  test("Trying to add a user to the table with missing details", async () => {
+    //arrange
+    const expected = '{"message":"Please complete every fields"}';
 
-  //assert
-  expect(actual).toBe(expected);
+    //act
+    const result = await register({
+      username: "TestUser3475478",
+      password: "password",
+      surename: "Dar",
+      email: "ala@dar.com",
+    });
+
+    const actual = result.body;
+
+    //assert
+    expect(actual).toBe(expected);
+  });
 });
 
-test("Trying to add a user to the table with missing details", async () => {
-  //arrange
-  const expected = '{"message":"Please complete every fields"}';
+describe("Testing the Login functionality", () => {
+  test("Trying to log in with correct credentials", async () => {
+    //arrange
+    const expected = 200;
 
-  //act
-  const result = await register({
-    username: "TestUser3475478",
-    password: "password",
-    surename: "Dar",
-    email: "ala@dar.com",
+    //act
+    const result = await login({
+      username: "TestUser3475478",
+      password: "password",
+    });
+
+    const actual = result.statusCode;
+
+    //assert
+    expect(actual).toBe(expected);
   });
 
-  const actual = result.body;
+  test("Trying to log in with incorrect credentials", async () => {
+    //arrange
+    const expected = 404;
 
-  //assert
-  expect(actual).toBe(expected);
-});
+    //act
+    const result = await login({
+      username: "TestUser3475478",
+      password: "passworwd",
+    });
 
-test("Trying to log in with correct credentials", async () => {
-  //arrange
-  const expected = 200;
+    const actual = result.statusCode;
 
-  //act
-  const result = await login({
-    username: "TestUser3475478",
-    password: "password",
+    //assert
+    expect(actual).toBe(expected);
   });
 
-  const actual = result.statusCode;
+  test("Trying to log in with missing credentials", async () => {
+    //arrange
+    const expected = 401;
 
-  //assert
-  expect(actual).toBe(expected);
-});
+    //act
+    const result = await login({
+      username: "TestUser3475478",
+    });
 
-test("Trying to log in with incorrect credentials", async () => {
-  //arrange
-  const expected = 404;
+    const actual = result.statusCode;
 
-  //act
-  const result = await login({
-    username: "TestUser3475478",
-    password: "passworwd",
+    //assert
+    expect(actual).toBe(expected);
   });
-
-  const actual = result.statusCode;
-
-  //assert
-  expect(actual).toBe(expected);
 });
+describe("Testing the Delete functionality", () => {
+  test("Trying to delete the test user", async () => {
+    //arrange
+    const expected = 200;
 
-test("Trying to log in with missing credentials", async () => {
-  //arrange
-  const expected = 401;
+    //act
+    const result = await deleteUser("TestUser3475478");
 
-  //act
-  const result = await login({
-    username: "TestUser3475478",
+    const actual = result.statusCode;
+
+    //assert
+    expect(actual).toBe(expected);
   });
-
-  const actual = result.statusCode;
-
-  //assert
-  expect(actual).toBe(expected);
-});
-
-test("Trying to delete the test user", async () => {
-  //arrange
-  const expected = 200;
-
-  //act
-  const result = await deleteUser("TestUser3475478");
-
-  const actual = result.statusCode;
-
-  //assert
-  expect(actual).toBe(expected);
 });
