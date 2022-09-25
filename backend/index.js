@@ -2,7 +2,7 @@ import replyMessage from "./functions/response";
 import register from "./models/register";
 
 export async function handler(event) {
-  console.log("Event", event);
+  console.log("Event", event); 
   let response = {};
 
   switch (true) {
