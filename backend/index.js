@@ -23,7 +23,7 @@ export async function handler(event) {
       break;
     case event.httpMethod === "POST" && event.path === "/user/verify":
       const verifyBody = JSON.parse(event.body);
-      response = await verify(registerBody);
+      response = await verify(verifyBody);
       break;
     default:
       response = replyMessage(404, "404 Not Found");
