@@ -7,21 +7,36 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const history = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
     const account = { name, email, password };
+    // console.log(JSON.stringify(account));
     setIsLoading(true);
-    fetch("http://localhost:8000/blogs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(account),
-    }).then(() => {
-      console.log("Successfully registered");
-      setIsLoading(false);
+    const response = await fetch(
+      "https://t1rs7h1mc5.execute-api.eu-west-1.amazonaws.com/prod/user/register",
+      {
+        method: "POST",
+        body: JSON.stringify(account),
+        headers: {
+          "x-api-key": "NLTDNyfByD5rr9EdmpA5Ua1TkTGB8FRb1FNgGCGV",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response);
+    const body = await response.json();
+
+    if (response.ok) {
       history("/profile");
-    });
+    } else {
+      setError(body.message);
+    }
+
+    setIsLoading(false);
   }
 
   return (
@@ -62,9 +77,7 @@ function Register() {
 
         {!isLoading && <button>Register</button>}
         {isLoading && <button disabled>Registering...</button>}
-        {/* <p>{title}</p>
-        <p>{text}</p>
-        <p>{author}</p> */}
+        {error && <div className="error">{error}</div>}
       </form>
     </div>
   );
