@@ -4,11 +4,11 @@ import replyMessage from "../functions/response.js";
 AWS.config.update({ region: "eu-west-1" });
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
-async function deleteUser(user) {
+async function deleteUser(email) {
   try {
     const params = {
       TableName: "cromwell-users",
-      Key: { username: user.toLowerCase() },
+      Key: { email: email.toLowerCase() },
     };
 
     const body = await documentClient.delete(params).promise();
@@ -23,6 +23,6 @@ async function deleteUser(user) {
   }
 }
 
-// deleteUser("testuser125478");
+deleteUser("bella");
 
 export default deleteUser;

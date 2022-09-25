@@ -2,14 +2,14 @@ import jwt from "jsonwebtoken";
 
 function getToken(user) {
   const userData = {
-    username: user.username,
+    name: user.name,
     email: user.email,
   };
 
   return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: "1h" });
 }
 
-export function veryfyToken(username, token) {
+export function veryfyToken(email, token) {
   return jwt.verify(token, process.env.JWT_SECRET, (error, response) => {
     if (error) {
       return {
@@ -17,7 +17,7 @@ export function veryfyToken(username, token) {
         message: "invalid token",
       };
     }
-    if (response.username != username) {
+    if (response.email != email) {
       return {
         verified: false,
         message: "invalid user",

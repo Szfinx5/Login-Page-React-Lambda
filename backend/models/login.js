@@ -9,26 +9,25 @@ AWS.config.update({ region: "eu-west-1" });
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 async function login(userData) {
-  if (!userData.username || !userData.password) {
+  if (!userData.email || !userData.password) {
     return replyMessage(401, { message: "Username or password is missing" });
   }
 
-  const userName = userData.username.trim().toLowerCase();
+  const email = userData.email.trim().toLowerCase();
   const password = userData.password.trim();
 
-  const validUser = await getUser(userName);
+  const validUser = await getUser(email);
   if (
     !validUser ||
-    !validUser.username ||
+    !validUser.email ||
     !bcrypt.compareSync(password, validUser.password)
   ) {
     return replyMessage(404, { message: "Username or password is incorrect" });
   }
   const user = {
-    username: validUser.username,
-    firstname: validUser.firstname,
-    surename: validUser.surename,
+    name: validUser.name,
     email: validUser.email,
+    password: validUser.password,
   };
   const token = getToken(user);
   const response = {

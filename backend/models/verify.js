@@ -2,7 +2,7 @@ import replyMessage from "../functions/response";
 import { veryfyToken } from "../functions/token.js";
 
 function verify(request) {
-  if (!request.user || !request.user.username || !request.token) {
+  if (!request.user || !request.user.email || !request.token) {
     return replyMessage(401, {
       verified: false,
       message: "Incorrect request",
@@ -12,7 +12,7 @@ function verify(request) {
   const user = request.user;
   const token = request.token;
 
-  const checkingToken = veryfyToken(user.username, token);
+  const checkingToken = veryfyToken(user.email, token);
 
   if (!checkingToken.verified) {
     return replyMessage(401, checkingToken);

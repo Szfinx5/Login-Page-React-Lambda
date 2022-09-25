@@ -4,10 +4,10 @@ AWS.config.update({ region: "eu-west-1" });
 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
-async function getUser(userName) {
+async function getUser(email) {
   const params = {
     TableName: "cromwell-users",
-    Key: { username: userName },
+    Key: { email: email },
   };
   try {
     const data = await documentClient.get(params).promise();

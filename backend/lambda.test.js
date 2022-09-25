@@ -10,10 +10,8 @@ describe("Testing the Register functionality", () => {
 
     //act
     const result = await register({
-      username: "TestUser3475478",
+      name: "TestUser3475478",
       password: "password",
-      firstname: "Ala",
-      surename: "Dar",
       email: "ala@dar.com",
     });
 
@@ -25,14 +23,12 @@ describe("Testing the Register functionality", () => {
 
   test("Trying to add an existing user to the table", async () => {
     //arrange
-    const expected = '{"message":"Username is already taken"}';
+    const expected = '{"message":"Email address is already registered"}';
 
     //act
     const result = await register({
-      username: "TestUser3475478",
+      name: "TestUser3475478",
       password: "password",
-      firstname: "Ala",
-      surename: "Dar",
       email: "ala@dar.com",
     });
 
@@ -48,10 +44,8 @@ describe("Testing the Register functionality", () => {
 
     //act
     const result = await register({
-      username: "TestUser3475478",
+      name: "TestUser3475478",
       password: "password",
-      surename: "Dar",
-      email: "ala@dar.com",
     });
 
     const actual = result.body;
@@ -68,7 +62,7 @@ describe("Testing the Login functionality", () => {
 
     //act
     const result = await login({
-      username: "TestUser3475478",
+      email: "ala@dar.com",
       password: "password",
     });
 
@@ -84,7 +78,7 @@ describe("Testing the Login functionality", () => {
 
     //act
     const result = await login({
-      username: "TestUser3475478",
+      email: "TestUser3475478",
       password: "passworwd",
     });
 
@@ -100,7 +94,7 @@ describe("Testing the Login functionality", () => {
 
     //act
     const result = await login({
-      username: "TestUser3475478",
+      email: "TestUser3475478",
     });
 
     const actual = result.statusCode;
@@ -115,7 +109,7 @@ describe("Testing the Delete functionality", () => {
     const expected = 200;
 
     //act
-    const result = await deleteUser("TestUser3475478");
+    const result = await deleteUser("ala@dar.com");
 
     const actual = result.statusCode;
 
