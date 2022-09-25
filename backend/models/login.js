@@ -10,10 +10,7 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 
 async function login(userData) {
   if (!userData.username || !userData.password) {
-    // return replyMessage(401, { message: "Username or password is missing" });
-    return console.log(
-      replyMessage(401, { message: "Username or password is missing" })
-    );
+    return replyMessage(401, { message: "Username or password is missing" });
   }
 
   const userName = userData.username.trim().toLowerCase();
@@ -25,10 +22,7 @@ async function login(userData) {
     !validUser.username ||
     !bcrypt.compareSync(password, validUser.password)
   ) {
-    // return replyMessage(404, { message: "Username or password is incorrect" });
-    return console.log(
-      replyMessage(404, { message: "Username or password is incorrect" })
-    );
+    return replyMessage(404, { message: "Username or password is incorrect" });
   }
   const user = {
     username: validUser.username,
@@ -41,10 +35,10 @@ async function login(userData) {
     user: user,
     token: token,
   };
-  //   return replyMessage(200, response);
-  return console.log(replyMessage(200, response));
+  console.log(replyMessage(200, response));
+  return replyMessage(200, response);
 }
 
-login({ username: "Bella", password: "password" });
+// login({ username: "bellla", password: "password" });
 
 export default login;
