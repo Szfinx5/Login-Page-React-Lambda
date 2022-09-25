@@ -2,7 +2,7 @@ name: PIPELINE OF TESTS
 
 on:
   push:
-    branches: [backend]
+    branches: [main, backend]
   pull_request_target:
     branches: [main]
 
