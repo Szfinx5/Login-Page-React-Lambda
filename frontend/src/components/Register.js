@@ -80,6 +80,14 @@ function Register() {
           onChange={(e) => setName(e.target.value)}
         ></input>
 
+        <label>Email address:</label>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></input>
+
         <label>Password:</label>
         <input
           type="password"
@@ -94,14 +102,6 @@ function Register() {
           required
           value={confPassword}
           onChange={(e) => setConfPassword(e.target.value)}
-        ></input>
-
-        <label>Email address:</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
         ></input>
 
         {!isLoading && <button>Register</button>}
