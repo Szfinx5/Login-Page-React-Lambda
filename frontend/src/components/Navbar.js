@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
+  console.log(isLoggedIn);
+
   return (
     <div className="navbar">
-      {/* <h1>Cromwell developer test</h1> */}
       <figure className="profile-image">
         <img src={require("../cromwell.png")} alt="" />
       </figure>
+
       <div className="links">
         <Link to="/">Home</Link>
         {/* <Link to="/register">Register</Link> */}
-        <Link to="/login">Login/Register</Link>
-        <Link to="/profile">Profile</Link>
+        {!isLoggedIn && <Link to="/login">Login/Register</Link>}
+        <Link to="/profile/">Profile</Link>
       </div>
     </div>
   );

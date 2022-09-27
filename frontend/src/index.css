@@ -44,7 +44,7 @@
 }
 
 /* Register */
-.register, .login{
+.register, .login, .profile{
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
@@ -66,7 +66,7 @@
   box-sizing: border-box;
   display: block;
 }
-.register button, .login button {
+.register button, .login button{
   background: var(--primary);
   color: #fff;
   border: 0;
@@ -95,6 +95,10 @@ div .error {
   line-height: 1.5;
 }
 
+.register-link{
+  color: var(--primary);
+}
+
 /* Homepage */
 .home-image img{
   max-width: 750px;
@@ -112,8 +116,44 @@ div .error {
     color: var(--primary);
 }
 
-.home p{
+.home{
   line-height: 2rem;
   margin-bottom: 15px;
 }
 
+.not-found {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.not-found h2{
+  font-size: 20px;
+  color: var(--primary);
+  margin-bottom: 30px;
+}
+
+.not-found p{
+  margin-bottom: 30px;
+}
+
+.profile h2 {
+  font-size: 20px;
+  color: var(--primary);
+  margin-top: 30px;
+}
+
+.profile button {
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.profile p {
+  word-break: break-all;
+  white-space: normal;
+}

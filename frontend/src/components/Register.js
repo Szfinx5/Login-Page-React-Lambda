@@ -13,30 +13,55 @@ function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const account = { name, email, password };
-    // console.log(JSON.stringify(account));
-    setIsLoading(true);
-    const response = await fetch(
-      "https://t1rs7h1mc5.execute-api.eu-west-1.amazonaws.com/prod/user/register",
-      {
-        method: "POST",
-        body: JSON.stringify(account),
-        headers: {
-          "x-api-key": "NLTDNyfByD5rr9EdmpA5Ua1TkTGB8FRb1FNgGCGV",
-          "Content-Type": "application/json",
-        },
+    //Password validation
+    function CheckPassword(password) {
+      const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+      if (password.match(passw)) {
+        if (password === confPassword) {
+          return true;
+        } else setError("The password doesn't match");
+        return false;
+      } else {
+        setError(
+          `Password would needs to be between 6 to 20 characters which contain at least
+           one numeric digit,
+            one uppercase and
+            one lowercase letter`
+        );
+        return false;
       }
-    );
-    console.log(response);
-    const body = await response.json();
-
-    if (response.ok) {
-      history("/profile");
-    } else {
-      setError(body.message);
     }
 
-    setIsLoading(false);
+    // If the password, email address are in the correct format, the POST request will be sent for registration
+    if (CheckPassword(password)) {
+      const account = { name, email, password };
+      setIsLoading(true);
+      const response = await fetch(
+        "https://t1rs7h1mc5.execute-api.eu-west-1.amazonaws.com/prod/user/register",
+        {
+          method: "POST",
+          body: JSON.stringify(account),
+          headers: {
+            "x-api-key": "NLTDNyfByD5rr9EdmpA5Ua1TkTGB8FRb1FNgGCGV",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const body = await response.json();
+
+      // Storing the received user information and token to the sessionStorage
+      // and redirecting to the profile page
+      if (response.ok) {
+        sessionStorage.setItem("user", body.user.email);
+        sessionStorage.setItem("token", body.token);
+        history("/profile");
+      } else {
+        setError(body.message);
+      }
+
+      setIsLoading(false);
+    }
   }
 
   return (

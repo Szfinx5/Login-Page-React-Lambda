@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const history = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     const account = { email, password };
-    // console.log(JSON.stringify(account));
     setIsLoading(true);
+
+    // POST request for login
     const response = await fetch(
       "https://t1rs7h1mc5.execute-api.eu-west-1.amazonaws.com/prod/user/login",
       {
@@ -25,11 +26,15 @@ function Login() {
         },
       }
     );
-    console.log(response);
     const body = await response.json();
-    console.log(body);
+
+    // If the credetials were correct, the user is redirected to the profile page,
+    // otherwise the returned error message will be displayed
     if (response.ok) {
-      history("/profile");
+      sessionStorage.setItem("user", body.user.email);
+      sessionStorage.setItem("token", body.token);
+      setIsLoggedIn(true);
+      history(`/profile/`);
     } else {
       setError(body.message);
     }
@@ -44,7 +49,7 @@ function Login() {
         <label>Email address:</label>
         <input
           type="email"
-          required
+          // required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         ></input>
@@ -52,17 +57,20 @@ function Login() {
         <label>Password:</label>
         <input
           type="password"
-          required
+          // required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         ></input>
         {!isLoading && <button>Login</button>}
         {isLoading && <button disabled>Please wait...</button>}
         <div className="new-account">
-          <Link to="/register">
-            Not purchased from us before? Register a new account here.
+          Haven't got an account yet?
+          <br />
+          <Link to="/register" className="register-link">
+            Click here to register.
           </Link>
         </div>
+
         {error && <div className="error">{error}</div>}
       </form>
     </div>
@@ -70,5 +78,3 @@ function Login() {
 }
 
 export default Login;
-
-<Link to="/login">Login/Register</Link>;
