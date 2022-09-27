@@ -12,7 +12,6 @@ function Login({ setIsLoggedIn }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const account = { email, password };
-    console.log(account);
     setIsLoading(true);
     // POST request for login
     const response = await fetch(
