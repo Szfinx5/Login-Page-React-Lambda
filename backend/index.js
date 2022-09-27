@@ -3,9 +3,13 @@ import register from "./models/register";
 import verify from "./models/verify";
 
 export async function handler(event) {
-  console.log("Event", event); 
+  console.log("Event", event);
   let response = {};
 
+  // Depending on the request time and the path,
+  // different functions will be called.
+  // The GET function was removed as GETing the user details were combined with the Verify path
+  // The Delete function would work, but not active as it is not implemented on the frontend
   switch (true) {
     // case event.httpMethod === "GET" && event.path === "/user":
     //   response = replyMessage(200, event.path);

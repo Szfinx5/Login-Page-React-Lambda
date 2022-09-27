@@ -1,16 +1,17 @@
 import jwt from "jsonwebtoken";
 
+// This function is generating a new token to the user
 function getToken(user) {
   const userData = {
     name: user.name,
     email: user.email,
   };
-
-  return jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: "1h" });
+  return jwt.sign(userData, "cromwell", { expiresIn: "1h" });
 }
 
+// Here we check if the token is valid.
 export function veryfyToken(email, token) {
-  return jwt.verify(token, process.env.JWT_SECRET, (error, response) => {
+  return jwt.verify(token, "cromwell", (error, response) => {
     if (error) {
       return {
         verified: false,

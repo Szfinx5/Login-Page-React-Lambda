@@ -1,3 +1,4 @@
+/// This is the general template of most of the API replies
 function replyMessage(statusCode, body) {
   return {
     statusCode: statusCode,

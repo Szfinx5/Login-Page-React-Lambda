@@ -11,7 +11,7 @@ describe("Testing the Register functionality", () => {
     //act
     const result = await register({
       name: "TestUser3475478",
-      password: "password",
+      password: "Password44",
       email: "ala@dar.com",
     });
 
@@ -28,7 +28,7 @@ describe("Testing the Register functionality", () => {
     //act
     const result = await register({
       name: "TestUser3475478",
-      password: "password",
+      password: "Password44",
       email: "ala@dar.com",
     });
 
@@ -45,7 +45,7 @@ describe("Testing the Register functionality", () => {
     //act
     const result = await register({
       name: "TestUser3475478",
-      password: "password",
+      password: "Password44",
     });
 
     const actual = result.body;
@@ -63,7 +63,7 @@ describe("Testing the Login functionality", () => {
     //act
     const result = await login({
       email: "ala@dar.com",
-      password: "password",
+      password: "Password44",
     });
 
     const actual = result.statusCode;
@@ -103,6 +103,7 @@ describe("Testing the Login functionality", () => {
     expect(actual).toBe(expected);
   });
 });
+
 describe("Testing the Delete functionality", () => {
   test("Trying to delete the test user", async () => {
     //arrange
