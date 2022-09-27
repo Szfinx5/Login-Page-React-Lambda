@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -11,7 +12,9 @@ function Login({ setIsLoggedIn }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const account = { email, password };
+    const encryptedPassword = bcrypt.hashSync(password, 10);
+    const account = { email, encryptedPassword };
+    console.log(account);
     setIsLoading(true);
 
     // POST request for login

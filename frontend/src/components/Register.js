@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 function Register() {
   const [name, setName] = useState("");
@@ -32,9 +33,12 @@ function Register() {
       }
     }
 
-    // If the password, email address are in the correct format, the POST request will be sent for registration
+    // If the password, email address are in the correct format, the password will be encrypted and
+    // the POST request will send the details for registration
     if (CheckPassword(password)) {
-      const account = { name, email, password };
+      const encryptedPassword = bcrypt.hashSync(password, 10);
+      const account = { name, email, encryptedPassword };
+      console.log(account);
       setIsLoading(true);
       const response = await fetch(
         "https://t1rs7h1mc5.execute-api.eu-west-1.amazonaws.com/prod/user/register",
