@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import bcrypt from "bcryptjs";
 
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
@@ -12,11 +11,9 @@ function Login({ setIsLoggedIn }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const encryptedPassword = bcrypt.hashSync(password, 10);
-    const account = { email, encryptedPassword };
+    const account = { email, password };
     console.log(account);
     setIsLoading(true);
-
     // POST request for login
     const response = await fetch(
       "https://t1rs7h1mc5.execute-api.eu-west-1.amazonaws.com/prod/user/login",
@@ -24,7 +21,7 @@ function Login({ setIsLoggedIn }) {
         method: "POST",
         body: JSON.stringify(account),
         headers: {
-          "x-api-key": "NLTDNyfByD5rr9EdmpA5Ua1TkTGB8FRb1FNgGCGV",
+          "x-api-key": process.env.REACT_APP_HEADER,
           "Content-Type": "application/json",
         },
       }

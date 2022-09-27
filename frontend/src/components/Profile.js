@@ -9,6 +9,7 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
   // Checking if a token is present in the sessionStorage
   // if no, the user will be redirected to the login page
   // if there is a token a POST will be sent to verify the token. If it is valid the response will be the user details
+  // if the token is not valid, it will be removed from sessionStorage and the user will be redirected to the login page
   useEffect(() => {
     const user = sessionStorage.getItem("user");
     const token = sessionStorage.getItem("token");
@@ -26,13 +27,20 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
             method: "POST",
             body: JSON.stringify(account),
             headers: {
-              "x-api-key": "NLTDNyfByD5rr9EdmpA5Ua1TkTGB8FRb1FNgGCGV",
+              "x-api-key": process.env.REACT_APP_HEADER,
               "Content-Type": "application/json",
             },
           }
         );
         const body = await response.json();
-        setUser(body);
+        if (response.ok) {
+          setUser(body);
+        } else {
+          sessionStorage.removeItem("user");
+          sessionStorage.removeItem("token");
+          setIsLoggedIn(false);
+          history(`/login`);
+        }
       }
       getUser(account);
     }

@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
-  console.log(isLoggedIn);
-
   return (
     <div className="navbar">
       <figure className="profile-image">
