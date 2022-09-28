@@ -19,12 +19,16 @@ https://cromwell-test.netlify.app/
 The registration page accepts the users name, email address and password (and confirm
 password).   
 On submission this page will send a POST request to /user/register   
+
 - **Login page**  
 The login page takes an email address and password then send a POST
 request to /user/login
-- **Profile page**
-The landing page will be a shown once the user has registered or logged in.
-This page can request the users details by sending a POST request with the JWT token and the email address.
+
+- **Profile page**     
+This page will be a shown once the user has registered or logged in.    
+If the user is not logged in and try to go to this page, they will be redirected to the login page.    
+This page requests the user's details by sending a POST request with the JWT token and the email address.    
+
 - **Homepage**
 A homepage with content and welcome message, including navigation.
 
