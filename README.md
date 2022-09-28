@@ -32,7 +32,7 @@ A homepage with content and welcome message, including navigation.
 The backend was written in Node.js. To build it, I have taken advantage of the serverless model provided by AWS, 
 including API gateway, Lambda and DynamoDB.
 
-## Tech stack and details
+## Tech stack and details about how to run and test:
 Please check out the subfilders for detailed description of the application:       
 - Frontend: https://github.com/Szfinx5/Login-Page-React-Lambda/tree/main/frontend        
 - Backend: https://github.com/Szfinx5/Login-Page-React-Lambda/tree/main/backend
