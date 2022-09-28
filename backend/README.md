@@ -122,6 +122,7 @@ It is protected by an API key (suppied below)
 | `token` | `string` | **Required** |
 
 #### Delete a user
+This endpoint is disabled as the function is not implemented in the frontend
 
 ```http
   DELETE /user/
