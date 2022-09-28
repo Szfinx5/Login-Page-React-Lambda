@@ -1,3 +1,7 @@
+## Demo
+
+The deployed version of the site can be accessed here:
+https://cromwell-test.netlify.app/
 
 ## Run Locally
 
@@ -36,11 +40,6 @@ The frontend was written in React using JavaScript. As it is a simple applicatio
 
 ![Component tree](https://github.com/Szfinx5/Login-Page-React-Lambda/blob/main/img/component-tree.JPG)
 
-
-## Demo
-
-The deployed version of the site can be accessed here:
-https://cromwell-test.netlify.app/
 
 ## Tech Stack
 
