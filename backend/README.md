@@ -45,17 +45,17 @@ Once the credentials are added to the .aws folder, follow the steps below:
   npm run test
 ```
 
+## Test Result
+Once the test was run, this should be the result:
+
+![Diagram](https://github.com/Szfinx5/Login-Page-React-Lambda/blob/main/img/tests.JPG)
+
+In case of failed tests, please contact me.
 
 ## Diagram
 This is the diagram of the serverless backend:
 
 ![Diagram](https://github.com/Szfinx5/Login-Page-React-Lambda/blob/main/img/diagrambe.JPG)
-
-
-
-
-
-
 
 
 ## Tech Stack
