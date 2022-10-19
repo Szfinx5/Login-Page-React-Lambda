@@ -7,7 +7,7 @@
 
 This web application  allows a user to register, login and view their details.
 The frontend pages were written in React which interacts with a restful API to perform the Registration, Login and Fetch user data
-from a DynamoDB table.
+from a DynamoDB table.       
 
 ## Demo
 
